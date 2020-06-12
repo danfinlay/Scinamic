@@ -92,3 +92,5 @@ A fun side-effect of this architecture is that it could allow very easily:
 
 - Enabling automating gameplay via API
 - Enabling a player to share control of their units with another player or agent.
+- Enabling "queueing" actions in series (even in branching conditions), basically for free given the promise pipeline structure.
+
