@@ -64,6 +64,11 @@ export default function buildingGen ({
         cost,
         time: 30000, // 30 seconds
       };
+
+      if (type === 'training') {
+        action.unitProduced = generateUnit();
+      }
+
       building.actions.push(action);
     }
     console.log('a building', building)
