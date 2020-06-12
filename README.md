@@ -1,4 +1,6 @@
-# Evolving Tech Tree
+# Scinamic
+
+[![initial tweet](./images/tweet.png)](https://twitter.com/danfinlay/status/1270902701291757569?s=20)
 
 The beginnings of a strategy game where the tech tree changes on each game, so that research is always a surprising mystery!
 
