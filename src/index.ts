@@ -9,7 +9,7 @@ const randomSeed: number = Math.round(Math.random() * 100000000000);
 const seedHash = ripemd160(String(randomSeed));
 
 const resources = resourceGen();
-const buildingTypes = buildingGen();
+const buildingTypes = buildingGen({ resources });
 const players = playerGen({ resources, buildingTypes, playerCount: 1 });
 
 const initialState = {
