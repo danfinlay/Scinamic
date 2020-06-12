@@ -71,7 +71,7 @@ A few stray thoughts to start:
 - A research task could affect all existing units, or all units of a type, or could make upgrades available for purchase (either globally or per-unit).
 - Could a research task allow new units to be trained on a building that isn't even available to build yet? I don't see why not, though it could be frustrating.
 - For the above reason, we may actually not want dual-dependency research: ie, we may want a "trie", not a "graph" of research. That would ensure research would always result in immediately visible changes (even if that detracts from the "realism").
-- I'm clearly okay making "the innovation" of this game "not knowing the tech tree", and not necessarily going for "scientific realism", even though "getting a little more realistic" was sort-of the founding thought.
+- I'm clearly okay making "the innovation" of this game "not knowing the tech tree", and not necessarily going for "scientific realism", even though "getting a little more realistic" was sort-of [the founding thought](https://twitter.com/danfinlay/status/1270902701291757569?s=20).
 - If we accept "no dual-dependency" research, then a research task wil _always_ and _only_ affect its own units.
 - There may be a way to still allow dual-dependency research, if it requires having two buildings built to even _begin_. This "cross-pollination" type research could yield new buildings and units that might share traits between the two other buildings in a deterministic, crypto-kitty sort of way (that sounds pretty fun tbh, real-time breeding a tech tree in game).
 
