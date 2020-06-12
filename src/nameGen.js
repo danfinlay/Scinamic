@@ -1,7 +1,7 @@
 const consonants = ['bl', 'gr', 'fr', 'kl', 'r', 'm']
 const vowels = ['a', 'e', 'ei', 'o', 'u', 'ou', 'i']
 
-function nameGen() {
+export default function nameGen() {
   let name = ''
   const vowelFirst = Math.random() > 0.5;
 
@@ -26,4 +26,3 @@ function pickConsonant () {
   return pickSegment(consonants)
 }
 
-module.exports = nameGen;
