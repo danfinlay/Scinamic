@@ -75,3 +75,18 @@ A few stray thoughts to start:
 - If we accept "no dual-dependency" research, then a research task wil _always_ and _only_ affect its own units.
 - There may be a way to still allow dual-dependency research, if it requires having two buildings built to even _begin_. This "cross-pollination" type research could yield new buildings and units that might share traits between the two other buildings in a deterministic, crypto-kitty sort of way (that sounds pretty fun tbh, real-time breeding a tech tree in game).
 
+## Running Script
+
+Currently bundled as ES6, and experimenting with using `deno` as a development runtime. To run, try `deno run src`.
+
+Might start as a command-line single-player game.
+
+Knowing me, I'll probably extend the API to the client via [capTP](https://github.com/danfinlay/captp-stream) just to try it out. This means that I will generally try to construct objects in a way that they are:
+
+- Async first
+- Ocap-secure (posession of an object implies ownership of control, ie could be passed directly to the player over capTP).
+
+A fun side-effect of this architecture is that it could allow very easily:
+
+- Enabling automating gameplay via API
+- Enabling a player to share control of their units with another player or agent.
