@@ -79,7 +79,7 @@ A few stray thoughts to start:
 
 ## Running Script
 
-Currently bundled as ES6, and experimenting with using `deno` as a development runtime. To run, try `deno run src`.
+Currently bundled as ES6, and experimenting with using `deno` as a development runtime. To run, try `deno run src/index.ts`.
 
 Might start as a command-line single-player game.
 

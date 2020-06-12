@@ -1,18 +1,29 @@
 import nameGen from './nameGen.js';
-import { Resource } from './resourceGen.ts'
+import { Resource } from './resourceGen.ts';
+import { Building, BuildingType } from './buildingGen.ts';
 
 type Players = { [key: string]: Player }
 
 interface Player {
   name: string;
   resources: { [ key:string ]: OwnedResource };
+  buildings: Array<Building>;
+  buildingTypes: Array<BuildingType>;
 }
 
 type OwnedResource = {
   amount: number,
 }
 
-export default function generatePlayers ({ resources, playerCount = 1 }: {resources: {}, playerCount?: number} = { resources: {}, playerCount: 1 }) {
+export default function generatePlayers ({
+  resources, buildingTypes, playerCount = 1
+}: {
+  resources: {},
+  playerCount?: number,
+  buildingTypes: BuildingType[],
+} = {
+  resources: {}, playerCount: 1, buildingTypes: [],
+}) {
 
   const players: Players = {};
 
@@ -24,7 +35,9 @@ export default function generatePlayers ({ resources, playerCount = 1 }: {resour
 
     const player = {
       resources: ownedResources,
+      buildings: [],
       name: nameGen(),
+      buildingTypes: buildingTypes,
     }
     console.log('adding ', player)
     players[player.name] = player
