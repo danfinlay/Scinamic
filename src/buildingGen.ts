@@ -1,17 +1,25 @@
 import nameGen from './nameGen.js';
-import { Resource } from './resourceGen.ts';
+import { Resource, Resources } from './resourceGen.ts';
 import { Cost } from './types.ts';
 import { UnitType } from './unitGen.ts';
+import { Player } from './playerGen.ts';
 import generateUnit from './unitGen.ts';
 
 export interface Building {
   instanceOf: BuildingType;
+  owner: Player,
+  date: {
+    startedBuilding: number;
+    created: number;
+  };
 }
 
 export interface BuildingType {
   name: string;
   cost: Cost;
+  time: number; // in ms
   actions: Array<BuildingAction>;
+  prereqs?: BuildingType[];
 }
 
 export interface BuildingAction {
@@ -31,7 +39,7 @@ function chooseActionType () {
 export default function buildingGen ({
   resources,
 }: {
-  resources: { [key: string]: Resource },
+  resources: Resources,
 } = {
   resources: {},
 }): BuildingType[] {
@@ -46,6 +54,7 @@ export default function buildingGen ({
 
     const building: BuildingType = {
       name: nameGen(),
+      time: 30000, // 30 seconds
       actions: [],
       cost,
     };

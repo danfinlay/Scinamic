@@ -1,6 +1,6 @@
 import nameGen from './nameGen.js';
 
-type Resources = { [key: string]: Resource }
+export type Resources = { [key: string]: Resource }
 
 export interface Resource {
   name: string;

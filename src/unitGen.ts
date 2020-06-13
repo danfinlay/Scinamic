@@ -7,7 +7,13 @@ export interface UnitType {
   cost: Cost;
 }
 
-export default function generateUnit ({ resources }: { resources: { [key:string]: Resource }} = { resources: {} }): UnitType {
+export default function generateUnit ({
+  resources = {}
+}: {
+  resources: { [key:string]: Resource }
+} = {
+  resources: {}
+}): UnitType {
 
   const cost: Cost = {};
   Object.keys(resources).forEach((resourceKey: string) => {
