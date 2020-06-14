@@ -11,6 +11,7 @@ export interface Unit {
   date: {
     started: number;
     created: number | undefined;
+    onCompletion: () => Promise<Unit>;
   };
 }
 
@@ -82,7 +83,18 @@ export function createUnit ({
     date: {
       started: Date.now(),
       created: undefined,
+      onCompletion,
     }
+  }
+
+  let completed = false;
+  const completionPromise: Promise<Unit> = new Promise((res) => {
+    setTimeout(() => {
+      res(unit);
+    }, unitType.time);
+  })
+  function onCompletion () {
+    return completionPromise;
   }
   return unit;
 }

@@ -50,7 +50,8 @@ function generatePlayer (resources: Resources, baseType: UnitType, name:string, 
     baseType,
     build,
   }
-  player.units.push(generate(baseType, `${seed}-base-unit`));
+  const unit = generate(baseType, `${seed}-base-unit`);
+  player.units.push(unit);
 
   /**
    * The player-restricted method of spending resources to produce a unit.
@@ -90,9 +91,6 @@ function generatePlayer (resources: Resources, baseType: UnitType, name:string, 
     player.units.push(unit);
     return unit;
   }
-
-
-
 
   return player;
 }
