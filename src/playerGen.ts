@@ -1,4 +1,4 @@
-import nameGen from './nameGen.js';
+import nameGen from './nameGen.ts';
 import { Resource, Resources } from './resourceGen.ts';
 import unitGen, { Unit, UnitType } from './unitGen.ts';
 
@@ -17,35 +17,36 @@ type OwnedResource = {
 }
 
 export default function generatePlayers ({
-  resources, baseType, playerCount = 1
+  resources, baseType, playerCount, seed,
 }: {
   resources: Resources,
-  playerCount?: number,
+  playerCount: number,
   baseType: UnitType,
+  seed: string,
 } = {
-  resources: {}, playerCount: 1, baseType: { name: 'default', cost: {}, time:0, actions:[] },
+  resources: {}, playerCount: 1, baseType: { name: 'default', cost: {}, time:0, actions:[] }, seed: 'default-players',
 }) {
 
   const players: Players = {};
 
   for (let i = 0; i < playerCount; i++) {
-    const player = generatePlayer(resources, baseType);
+    const player = generatePlayer(resources, baseType, `Player ${i+1}`);
     players[player.name] = player;
   }
 
   return players
 }
 
-function generatePlayer (resources: Resources, baseType: UnitType) {
+function generatePlayer (resources: Resources, baseType: UnitType, name:string) {
   const ownedResources: { [key: string]: OwnedResource } = {}
   for (let resource in resources) {
     ownedResources[resource] = { amount: 100 }
   }
 
   const player: Player = {
+    name,
     resources: ownedResources,
     units: [],
-    name: nameGen(),
     baseType,
     build,
   }

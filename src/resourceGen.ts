@@ -1,4 +1,4 @@
-import nameGen from './nameGen.js';
+import nameGen from './nameGen.ts';
 
 export type Resources = { [key: string]: Resource }
 
@@ -6,14 +6,13 @@ export interface Resource {
   name: string;
 }
 
-export default function generateResources () {
+export default function generateResources (seed: string = 'default') {
   const resources: Resources = {};
 
   for (let i = 0; i < 3; i++) {
     const resource = {
-      name: nameGen(1),
+      name: nameGen(1, `${seed} resource ${i}`),
     }
-    console.log('adding ', resource)
     resources[resource.name] = resource
   }
 

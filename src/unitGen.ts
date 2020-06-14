@@ -1,4 +1,4 @@
-import nameGen from './nameGen.js';
+import nameGen from './nameGen.ts';
 import { Cost } from './types.ts';
 import { Resource, Resources } from './resourceGen.ts';
 import { Player } from './playerGen.ts';
@@ -24,15 +24,19 @@ export interface UnitAction {
   name: string;
   cost: Cost;
   time: number; // in ms
+  seed: string;
   unitProduced?: UnitType;
 }
 
 export default function generateUnit ({
-  resources = {}
+  resources,
+  seed,
 }: {
   resources: Resources,
+  seed: string,
 } = {
-  resources: {}
+  resources: {},
+  seed: 'default-unit',
 }): UnitType {
 
   const cost: Cost = {};
@@ -42,18 +46,18 @@ export default function generateUnit ({
 
   const actions = [];
   for (let i = 0; i < 3; i++) {
-    actions.push(generateAction({ resources }));
+    actions.push(generateAction({ resources, seed: `${seed}action${i}` }));
   }
 
   return {
-    name: nameGen(),
+    name: nameGen(3, `${seed}unit`),
     cost,
     time: 30,
     actions,
   }
 }
 
-function generateAction ({ resources = {} }: { resources: Resources } = { resources: {} }): UnitAction {
+function generateAction ({ resources, seed }: { resources: Resources, seed: string } = { resources: {}, seed: 'default-action' }): UnitAction {
 
   const cost: Cost = {};
   Object.keys(resources).forEach((resourceKey: string) => {
@@ -64,7 +68,7 @@ function generateAction ({ resources = {} }: { resources: Resources } = { resour
     name: nameGen(),
     cost,
     time: 30000, // 30 seconds
-    unitProduced: generateUnit(),
+    seed,
   };
 
   return action;
