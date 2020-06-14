@@ -1,6 +1,6 @@
 import nameGen from './nameGen.ts';
 import { Resource, Resources } from './resourceGen.ts';
-import unitGen, { Unit, UnitType } from './unitGen.ts';
+import unitGen, { Unit, UnitType, UnitAction, createUnit } from './unitGen.ts';
 
 type Players = { [key: string]: Player }
 
@@ -9,7 +9,7 @@ export interface Player {
   resources: { [ key:string ]: OwnedResource };
   units: Unit[];
   baseType: UnitType,
-  build: (unit: UnitType) => Promise<Unit>;
+  build: (action: UnitAction) => Promise<Unit>;
 }
 
 type OwnedResource = {
@@ -24,20 +24,20 @@ export default function generatePlayers ({
   baseType: UnitType,
   seed: string,
 } = {
-  resources: {}, playerCount: 1, baseType: { name: 'default', cost: {}, time:0, actions:[] }, seed: 'default-players',
+  resources: {}, playerCount: 1, baseType: { name: 'default', cost: {}, time:0 }, seed: 'default-players',
 }) {
 
   const players: Players = {};
 
   for (let i = 0; i < playerCount; i++) {
-    const player = generatePlayer(resources, baseType, `Player ${i+1}`);
+    const player = generatePlayer(resources, baseType, `Player ${i+1}`, seed);
     players[player.name] = player;
   }
 
   return players
 }
 
-function generatePlayer (resources: Resources, baseType: UnitType, name:string) {
+function generatePlayer (resources: Resources, baseType: UnitType, name:string, seed: string) {
   const ownedResources: { [key: string]: OwnedResource } = {}
   for (let resource in resources) {
     ownedResources[resource] = { amount: 100 }
@@ -50,51 +50,49 @@ function generatePlayer (resources: Resources, baseType: UnitType, name:string) 
     baseType,
     build,
   }
+  player.units.push(generate(baseType, `${seed}-base-unit`));
 
-  async function build (unitType: UnitType): Promise<Unit> {
-
-    // Ensure prereqs are met:
-    if (unitType.prereqs) {
-      let disqualified = false;
-      const currentTypes = player.units.map(b => b.instanceOf)
-
-      unitType.prereqs.forEach((prereq) => {
-        if (!currentTypes.includes(prereq)) {
-          disqualified = true;
-          return;
-        }
-      })
-
-      if (disqualified) {
-        throw new Error(`Unit ${unitType.name} requires ${unitType.prereqs.join(', ')}`)
-      }
-    }
+  /**
+   * The player-restricted method of spending resources to produce a unit.
+   * @param action The action the player chooses to perform.
+   */
+  async function build (action: UnitAction): Promise<Unit> {
 
     // Ensure user has required funds:
     let sufficientFunds = true;
-    for (let resource in unitType.cost) {
-      if (player.resources[resource].amount < unitType.cost[resource]) {
+    for (let resource in action.cost) {
+      if (player.resources[resource].amount < action.cost[resource]) {
         throw new Error(`Insufficient ${resource}`);
       }
     }
 
     // Deduct the balance from the user:
-    for (let resource in unitType.cost) {
-      player.resources[resource].amount -= unitType.cost[resource];
+    for (let resource in action.cost) {
+      player.resources[resource].amount -= action.cost[resource];
     }
 
-    const now = Date.now();
-    const unit: Unit = {
-      instanceOf: unitType,
-      owner: player,
-      date: {
-        started: now,
-        created: now + unitType.time,
-      }  
-    }
+    return generate(action.unitProduced, action.seed);
+  }
 
+  /**
+   * The unsafe way of generating a unit for a player.
+   * Should only be used internally.
+   * @param action The unit to pre-generate.
+   */
+  function generate (unitType: UnitType, seed: string): Unit {
+    const unit: Unit = createUnit({
+      unitType,
+      seed,
+      player,
+      resources,
+    })
+
+    player.units.push(unit);
     return unit;
   }
+
+
+
 
   return player;
 }

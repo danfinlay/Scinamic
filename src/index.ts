@@ -1,6 +1,6 @@
 import resourceGen from './resourceGen.ts';
 import { Resources } from './resourceGen.ts';
-import playerGen from './playerGen.ts';
+import playerGen, { Player } from './playerGen.ts';
 import unitGen, { Unit, UnitType } from './unitGen.ts';
 import ripemd160 from "https://raw.githubusercontent.com/paulmillr/noble-ripemd160/master/index.ts";
 import { randomFromSeed } from './random/randomFromSeed.ts';
@@ -20,4 +20,17 @@ const initialState = {
   players,
 }
 
-console.log(`Starting with: ${JSON.stringify(initialState, null, 2)}`)
+const player: Player = players['Player 1'];
+console.log(printResources(player));
+console.log(`Units: `, player.units);
+
+debugger;
+
+function printResources (player: Player) {
+  let output = 'Resources: ';
+  for (let resource in player.resources) {
+    output += `${resource}: ${player.resources[resource].amount}. `
+  }
+  return output;
+}
+
