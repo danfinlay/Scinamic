@@ -77,6 +77,16 @@ A few stray thoughts to start:
 - If we accept "no dual-dependency" research, then a research task wil _always_ and _only_ affect its own units.
 - There may be a way to still allow dual-dependency research, if it requires having two buildings built to even _begin_. This "cross-pollination" type research could yield new buildings and units that might share traits between the two other buildings in a deterministic, crypto-kitty sort of way (that sounds pretty fun tbh, real-time breeding a tech tree in game).
 
+## Current Implementation
+
+Current implementation is pursuing a very MVP approach to this. To that end, I am exploring the following direction:
+
+- There is no distinction between units and buildings.
+- There is no initial notion of space, and so any victory or battle conditions will be "aspatial" (like Magic the Gathering, let's say).
+- You start with one (deterministically generated) unit, which has three actions on it.
+- Each action produces a new (deterministic) type of unit.
+- While you may be able to see the immediate stats of the new unit before creating it, you cannot see the results of the new unit's actions that it will come with until you have it.
+
 ## Running Script
 
 Currently bundled as ES6, and experimenting with using `deno` as a development runtime. To run, try `deno run src/index.ts`.

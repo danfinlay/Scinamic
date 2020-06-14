@@ -1,15 +1,15 @@
 import nameGen from './nameGen.js';
 import { Resource, Resources } from './resourceGen.ts';
-import { Building, BuildingType } from './buildingGen.ts';
+import unitGen, { Unit, UnitType } from './unitGen.ts';
 
 type Players = { [key: string]: Player }
 
 export interface Player {
   name: string;
   resources: { [ key:string ]: OwnedResource };
-  buildings: Building[];
-  buildingTypes: Array<BuildingType>;
-  build: (building: BuildingType) => Promise<Building>;
+  units: Unit[];
+  baseType: UnitType,
+  build: (unit: UnitType) => Promise<Unit>;
 }
 
 type OwnedResource = {
@@ -17,26 +17,26 @@ type OwnedResource = {
 }
 
 export default function generatePlayers ({
-  resources, buildingTypes, playerCount = 1
+  resources, baseType, playerCount = 1
 }: {
   resources: Resources,
   playerCount?: number,
-  buildingTypes: BuildingType[],
+  baseType: UnitType,
 } = {
-  resources: {}, playerCount: 1, buildingTypes: [],
+  resources: {}, playerCount: 1, baseType: { name: 'default', cost: {}, time:0, actions:[] },
 }) {
 
   const players: Players = {};
 
   for (let i = 0; i < playerCount; i++) {
-    const player = generatePlayer(resources, buildingTypes);
+    const player = generatePlayer(resources, baseType);
     players[player.name] = player;
   }
 
   return players
 }
 
-function generatePlayer (resources: Resources, buildingTypes: BuildingType[]) {
+function generatePlayer (resources: Resources, baseType: UnitType) {
   const ownedResources: { [key: string]: OwnedResource } = {}
   for (let resource in resources) {
     ownedResources[resource] = { amount: 100 }
@@ -44,20 +44,20 @@ function generatePlayer (resources: Resources, buildingTypes: BuildingType[]) {
 
   const player: Player = {
     resources: ownedResources,
-    buildings: [],
+    units: [],
     name: nameGen(),
-    buildingTypes: buildingTypes,
+    baseType,
     build,
   }
 
-  async function build (buildingType: BuildingType): Promise<Building> {
+  async function build (unitType: UnitType): Promise<Unit> {
 
     // Ensure prereqs are met:
-    if (buildingType.prereqs) {
+    if (unitType.prereqs) {
       let disqualified = false;
-      const currentTypes = player.buildings.map(b => b.instanceOf)
+      const currentTypes = player.units.map(b => b.instanceOf)
 
-      buildingType.prereqs.forEach((prereq) => {
+      unitType.prereqs.forEach((prereq) => {
         if (!currentTypes.includes(prereq)) {
           disqualified = true;
           return;
@@ -65,34 +65,34 @@ function generatePlayer (resources: Resources, buildingTypes: BuildingType[]) {
       })
 
       if (disqualified) {
-        throw new Error(`Building ${buildingType.name} requires ${buildingType.prereqs.join(', ')}`)
+        throw new Error(`Unit ${unitType.name} requires ${unitType.prereqs.join(', ')}`)
       }
     }
 
     // Ensure user has required funds:
     let sufficientFunds = true;
-    for (let resource in buildingType.cost) {
-      if (player.resources[resource].amount < buildingType.cost[resource]) {
+    for (let resource in unitType.cost) {
+      if (player.resources[resource].amount < unitType.cost[resource]) {
         throw new Error(`Insufficient ${resource}`);
       }
     }
 
     // Deduct the balance from the user:
-    for (let resource in buildingType.cost) {
-      player.resources[resource].amount -= buildingType.cost[resource];
+    for (let resource in unitType.cost) {
+      player.resources[resource].amount -= unitType.cost[resource];
     }
 
     const now = Date.now();
-    const building: Building = {
-      instanceOf: buildingType,
+    const unit: Unit = {
+      instanceOf: unitType,
       owner: player,
       date: {
-        startedBuilding: now,
-        created: now + buildingType.time,
+        started: now,
+        created: now + unitType.time,
       }  
     }
 
-    return building;
+    return unit;
   }
 
   return player;
