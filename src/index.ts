@@ -33,4 +33,3 @@ function printResources (player: Player) {
   }
   return output;
 }
-

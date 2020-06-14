@@ -50,8 +50,7 @@ function generatePlayer (resources: Resources, baseType: UnitType, name:string, 
     baseType,
     build,
   }
-  const unit = generate(baseType, `${seed}-base-unit`);
-  player.units.push(unit);
+  generate(baseType, `${seed}-base-unit`);
 
   /**
    * The player-restricted method of spending resources to produce a unit.
