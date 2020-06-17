@@ -91,6 +91,8 @@ Current implementation is pursuing a very MVP approach to this. To that end, I a
 
 Currently bundled as ES6, and experimenting with using `deno` as a development runtime. To run, try `deno run src/index.ts`.
 
+You can rebuild the example with `./build.sh`.
+
 Might start as a command-line single-player game.
 
 Knowing me, I'll probably extend the API to the client via [capTP](https://github.com/danfinlay/captp-stream) just to try it out. This means that I will generally try to construct objects in a way that they are:
