@@ -1,0 +1,14 @@
+.resources {
+  border: 1px solid black;
+}
+
+.resource {
+  display: inline-block;
+  padding: 10px;
+  max-width: 300px;
+  border: 1px solid grey;
+}
+
+.resource .p {
+  display: inline;
+}
