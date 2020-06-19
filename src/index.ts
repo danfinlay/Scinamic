@@ -1,14 +1,18 @@
 import resourceGen from './resourceGen';
 import { Resources } from './resourceGen';
 import playerGen, { Player } from './playerGen';
-import unitGen, { Unit, UnitType } from './unitGen';
-import { randomFromSeed } from './random/randomFromSeed';
+import unitGen, { UnitType } from './unitGen';
+
+
 import { observable } from 'caputi';
 
 const obs = observable(1);
+
 console.log(obs);
 
-const randomSeed: number = Math.round(Math.random() * 100000000000);
+
+
+
 const seedHash = 'abcdef0123456789';
 
 const resources: Resources = resourceGen(seedHash);
@@ -22,6 +26,8 @@ const initialState = {
   baseType,
   players,
 }
+
+console.log(initialState);
 
 const player: Player = players['Player 1'];
 console.log(printResources(player));
