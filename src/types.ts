@@ -1,4 +1,4 @@
-import { Resource } from './resourceGen.ts'
+import { Resource } from './resourceGen';
 
 export interface Cost {
   [key: string]: number;

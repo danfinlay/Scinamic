@@ -1,0 +1,27 @@
+{
+  "name": "scinamic",
+  "version": "1.0.0",
+  "description": "[![initial tweet](./images/tweet.png)](https://twitter.com/danfinlay/status/1270902701291757569?s=20)",
+  "main": "bundle.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danfinlay/EvolvingTechGame.git"
+  },
+  "author": "Dan Finlay <dan@danfinlay.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danfinlay/EvolvingTechGame/issues"
+  },
+  "homepage": "https://github.com/danfinlay/EvolvingTechGame#readme",
+  "dependencies": {
+    "caputi": "^1.0.0",
+    "ripemd160": "^2.0.2"
+  },
+  "devDependencies": {
+    "typescript": "^3.9.5"
+  }
+}

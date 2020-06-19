@@ -1,8 +1,8 @@
-import nameGen from './nameGen.ts';
-import { createRandomGen, RandomGen } from './random/randomFromSeed.ts';
-import { Cost } from './types.ts';
-import { Resource, Resources } from './resourceGen.ts';
-import generatePlayers, { Player } from './playerGen.ts';
+import nameGen from './nameGen';
+import { createRandomGen, RandomGen } from './random/randomFromSeed';
+import { Cost } from './types';
+import { Resource, Resources } from './resourceGen';
+import generatePlayers, { Player } from './playerGen';
 
 export interface Unit {
   instanceOf: UnitType;

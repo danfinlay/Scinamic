@@ -1,6 +1,6 @@
-import nameGen from './nameGen.ts';
-import { Resource, Resources } from './resourceGen.ts';
-import unitGen, { Unit, UnitType, UnitAction, createUnit } from './unitGen.ts';
+import nameGen from './nameGen';
+import { Resource, Resources } from './resourceGen';
+import unitGen, { Unit, UnitType, UnitAction, createUnit } from './unitGen';
 
 type Players = { [key: string]: Player }
 

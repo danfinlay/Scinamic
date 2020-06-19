@@ -1,4 +1,4 @@
-import { createRandomGen, RandomGen } from './random/randomFromSeed.ts';
+import { createRandomGen, RandomGen } from './random/randomFromSeed';
 
 const consonants = ['bl', 'gr', 'fr', 'kl', 'r', 'm']
 const vowels = ['a', 'e', 'ei', 'o', 'u', 'ou', 'i']

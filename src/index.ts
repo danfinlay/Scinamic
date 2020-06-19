@@ -1,12 +1,15 @@
-import resourceGen from './resourceGen.ts';
-import { Resources } from './resourceGen.ts';
-import playerGen, { Player } from './playerGen.ts';
-import unitGen, { Unit, UnitType } from './unitGen.ts';
-import ripemd160 from "https://raw.githubusercontent.com/paulmillr/noble-ripemd160/master/index.ts";
-import { randomFromSeed } from './random/randomFromSeed.ts';
+import resourceGen from './resourceGen';
+import { Resources } from './resourceGen';
+import playerGen, { Player } from './playerGen';
+import unitGen, { Unit, UnitType } from './unitGen';
+import { randomFromSeed } from './random/randomFromSeed';
+import { observable } from 'caputi';
+
+const obs = observable(1);
+console.log(obs);
 
 const randomSeed: number = Math.round(Math.random() * 100000000000);
-const seedHash = ripemd160(String(randomSeed));
+const seedHash = 'abcdef0123456789';
 
 const resources: Resources = resourceGen(seedHash);
 

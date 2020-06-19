@@ -1,4 +1,4 @@
-import nameGen from './nameGen.ts';
+import nameGen from './nameGen';
 
 export type Resources = { [key: string]: Resource }
 

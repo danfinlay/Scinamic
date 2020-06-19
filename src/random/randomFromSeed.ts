@@ -1,4 +1,4 @@
-import ripemd160 from "https://raw.githubusercontent.com/paulmillr/noble-ripemd160/master/index.ts";
+import ripemd160 from "ripemd160";
 
 /*
  * Takes a long hexadecimal string and converts it to a number from 0 to 1.
