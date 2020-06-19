@@ -103,10 +103,10 @@ captp-stream@^1.0.1:
   dependencies:
     "@agoric/captp" "^1.2.3"
 
-caputi@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/caputi/-/caputi-1.0.0.tgz#80c4fb24ed616957c1d1d7cef24f9378c8e0e9d3"
-  integrity sha512-8HWXUMy/kQWRa7jWcm2cKlbpBkaikpWJsbE5hczNKh5oQa1orZu9jfUTNSYQwqouxFh9jCRVvangiz4myRkLVg==
+caputi@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/caputi/-/caputi-1.0.1.tgz#f3c882807e7aee1fc5e0894ce82c0a3571be4151"
+  integrity sha512-q6+PzP9fzTpkT7tnZfMQn3pctOaryM6H7beKug9iv5AuujH1ebiV7/rYphfo+YkVxpRTTUeIOP9kOojxvaJSWw==
   dependencies:
     "@agoric/harden" "^0.0.8"
     await-semaphore "^0.1.3"
