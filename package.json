@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/danfinlay/EvolvingTechGame#readme",
   "dependencies": {
-    "caputi": "1.0.1",
+    "caputi": "^2.3.0",
+    "node-ws-captp": "^1.1.0",
     "ripemd160": "^2.0.2"
   },
   "devDependencies": {
